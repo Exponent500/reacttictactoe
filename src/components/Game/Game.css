@@ -1,0 +1,14 @@
+/* .board-row:after {
+    clear: both;
+    content: "";
+    display: table;
+} */
+
+.game {
+    width: 90vmin;
+    height: 90vmin;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    left: 0;
+}

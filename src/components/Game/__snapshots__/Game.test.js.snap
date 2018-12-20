@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Game should render correctly 1`] = `
+<div
+  className="game"
+>
+  <div
+    className="game-status"
+  >
+    Player 1's turn.
+  </div>
+  <div
+    className=""
+  >
+    <Board
+      onClick={[Function]}
+      squares={
+        Array [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+        ]
+      }
+    />
+  </div>
+  <div
+    className=""
+  >
+    <button
+      className="btn-undo-move"
+      onClick={[Function]}
+    >
+      Undo Last Move
+    </button>
+  </div>
+  <div
+    className=""
+  >
+    <button
+      className="btn-toggle-characters"
+      onClick={[Function]}
+      type="toggle"
+    >
+      Toggle Characters Used
+    </button>
+  </div>
+</div>
+`;

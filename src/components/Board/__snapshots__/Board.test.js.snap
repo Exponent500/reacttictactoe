@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Board should render correctly 1`] = `
+<div
+  className="board"
+>
+  <div
+    className="board-row"
+  >
+    <Square
+      key="0"
+      onClick={[Function]}
+      value="O"
+    />
+    <Square
+      key="1"
+      onClick={[Function]}
+      value="O"
+    />
+    <Square
+      key="2"
+      onClick={[Function]}
+      value="X"
+    />
+  </div>
+  <div
+    className="board-row"
+  >
+    <Square
+      key="3"
+      onClick={[Function]}
+      value="0"
+    />
+    <Square
+      key="4"
+      onClick={[Function]}
+      value="0"
+    />
+    <Square
+      key="5"
+      onClick={[Function]}
+      value="X"
+    />
+  </div>
+  <div
+    className="board-row"
+  >
+    <Square
+      key="6"
+      onClick={[Function]}
+      value="X"
+    />
+    <Square
+      key="7"
+      onClick={[Function]}
+      value="X"
+    />
+    <Square
+      key="8"
+      onClick={[Function]}
+      value="0"
+    />
+  </div>
+  <div
+    className="board-horizontal-line top-line"
+  />
+  <div
+    className="board-horizontal-line bottom-line"
+  />
+  <div
+    className="board-vertical-line left-line"
+  />
+  <div
+    className="board-vertical-line right-line"
+  />
+</div>
+`;

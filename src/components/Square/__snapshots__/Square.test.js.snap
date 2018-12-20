@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Square should render correctly 1`] = `
+<div
+  className="square"
+>
+  <div
+    className="square-value"
+  >
+    mockValue
+  </div>
+</div>
+`;
