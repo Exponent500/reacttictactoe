@@ -101,7 +101,7 @@ describe('Game', () => {
     });
 
     it('should update the Board and Game Status if undo last move button is clicked after moves have been made', () => {
-        const wrapped = mount(<Game />);
+        const wrapped = mount(<Game regularMode="true"/>);
         const squareFourValue = wrapped.find('.square-value').at(4);
         let gameStatus;
 
@@ -111,7 +111,7 @@ describe('Game', () => {
 
         expect(squareFourValue.text()).toEqual('X');
 
-        wrapped.find('.btn-undo-move').simulate('click');
+        wrapped.find('Button.btn-undo-move').simulate('click');
 
         expect(squareFourValue.text()).toEqual('');
 
@@ -121,7 +121,7 @@ describe('Game', () => {
     });
 
     it('should update the Board if the toggle characters button is clicked after moves have been made', () => {
-        const wrapped = mount(<Game />);
+        const wrapped = mount(<Game regularMode="true"/>);
         const squareZeroValue = wrapped.find('.square-value').at(0);
         const squareFourValue = wrapped.find('.square-value').at(4);
 
@@ -137,7 +137,7 @@ describe('Game', () => {
 
         expect(squareZeroValue.text()).toEqual('O');        
 
-        wrapped.find('.btn-toggle-characters').simulate('click');
+        wrapped.setProps({ regularMode: false })
 
         expect(squareFourValue.text()).toEqual('Y');
         expect(squareZeroValue.text()).toEqual('Z');
@@ -148,12 +148,28 @@ describe('Game', () => {
         const wrapped = mount(<Game />);
         const squareZeroValue = wrapped.find('.square-value').at(0);
 
-        wrapped.find('.btn-toggle-characters').simulate('click');
+        wrapped.setProps({ regularMode: false })
 
         // Player 1's turn
         const squareZero = wrapped.find('.square').at(0);
         squareZero.simulate('click');
 
         expect(squareZeroValue.text()).toEqual('Y');
+    });
+
+    it('should start a new game when "Start New Game" button is clicked', () => {
+        const wrapped = mount(<Game />);
+        wrapped.find('Button.btn-start-new-game').simulate('click');
+        expect(wrapped.find('.game-status').text()).toEqual("Player 1's turn.");
+        expect(wrapped.find('.square').at(0).text()).toEqual('');
+        expect(wrapped.find('.square').at(1).text()).toEqual('');
+        expect(wrapped.find('.square').at(2).text()).toEqual('');
+        expect(wrapped.find('.square').at(3).text()).toEqual('');
+        expect(wrapped.find('.square').at(4).text()).toEqual('');
+        expect(wrapped.find('.square').at(5).text()).toEqual('');
+        expect(wrapped.find('.square').at(6).text()).toEqual('');
+        expect(wrapped.find('.square').at(7).text()).toEqual('');
+        expect(wrapped.find('.square').at(8).text()).toEqual('');
+
     });
 });

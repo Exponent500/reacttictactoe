@@ -2,7 +2,7 @@
 
 exports[`Square should render correctly 1`] = `
 <div
-  className="square"
+  className="square marked"
 >
   <div
     className="square-value"

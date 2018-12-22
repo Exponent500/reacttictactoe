@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
 import Board from '../Board/Board';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+
 import './Game.css';
 
 class Game extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            regularMode: true,
             turn: 0,
             player: 1,
             history: [{
                 squares: Array(9).fill(null)
             }]
         };
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.regularMode !== prevProps.regularMode) {
+            this.onModeChange();
+        }
     }
 
     /**
@@ -26,7 +34,8 @@ class Game extends Component {
         const current = history[history.length - 1];
         const squares = current.squares.slice();
         const currentPlayer = this.state.player;
-        const regularMode = this.state.regularMode;
+        const { regularMode } = this.props;
+
 
         // guards against click events when:
         // 1. the player clicks on a square that's already been clicked
@@ -106,8 +115,7 @@ class Game extends Component {
     /**
      * Click handler for when user changes the characters used for the game
      */
-    onToggleCharacters() {
-        const regularMode = !this.state.regularMode;
+    onModeChange() {
         // make copy of the history
         const history = this.state.history.slice(0, this.state.turn + 1);
         // update history of moves so that the appropriate characters are shown based on the mode
@@ -121,14 +129,25 @@ class Game extends Component {
             return { squares: squares };
         });
         this.setState({
-            regularMode: regularMode,
             history: updatedHistory
-        })
+        });     
+    }
+
+    /**
+     * Click handler for when user wants to start a new game
+     */
+    onStartNewGame() {
+        this.setState({
+            turn: 0,
+            player: 1,
+            history: [{
+                squares: Array(9).fill(null)
+            }]
+        });
     }
 
     render() {
-        const history = this.state.history;
-        const turn = this.state.turn;
+        const { history, turn } = this.state;
         const current = history[turn];
         const currentPlayer = this.state.player;
         const winner = this.hasAPlayerWon(current.squares);
@@ -148,26 +167,43 @@ class Game extends Component {
 
         return(
             <div className="game">
-                <div className="game-status">
-                    {status}
-                </div>
-                <div className="">
-                    <Board
-                        squares={this.state.history[this.state.turn].squares}
-                        onClick={squareIndex => this.onSquareClick(squareIndex)}
-                    ></Board>
-                </div>
-                <div className="">
-                    <button className="btn-undo-move"
-                            onClick={() => this.onUndoLastMove()}
-                    >Undo Last Move</button>
-                </div>
-                <div className="">
-                    <button className="btn-toggle-characters"
-                            type="toggle" 
-                            onClick={() => this.onToggleCharacters()}
-                    >Toggle Characters Used</button>
-                </div>
+                <Grid container direction="column">
+                    <Grid item xs={12}>
+                        <Grid container className="game-status-container" justify="center">
+                            <Grid item>
+                                <div className="game-status">
+                                    {status}
+                                </div>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Board
+                            squares={this.state.history[this.state.turn].squares}
+                            onClick={squareIndex => this.onSquareClick(squareIndex)}
+                        ></Board>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Grid container className="btn-group" justify="center" spacing={8}>
+                            <Grid item className="btn-undo-move-container">
+                                <Button variant="contained"
+                                        color="primary"
+                                        className="btn-undo-move"
+                                        disabled={!turn}
+                                        onClick={() => this.onUndoLastMove()}
+                                >Undo Last Move</Button>
+                            </Grid>
+                            <Grid item>
+                                <Button variant="contained"
+                                        color="secondary"
+                                        className="btn-start-new-game"
+                                        disabled={!turn}
+                                        onClick={() => this.onStartNewGame()}
+                                >Start New Game</Button>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
             </div>
         );
     }

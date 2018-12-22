@@ -1,14 +1,19 @@
-/* .board-row:after {
-    clear: both;
-    content: "";
-    display: table;
-} */
+.game-status {
+    font-size: 24px;
+}
+
+.btn-group {
+    padding-top: 40px;
+}
+
+.btn-undo-move-wrapper {
+    margin-right: 20px;
+}
 
 .game {
-    width: 90vmin;
-    height: 90vmin;
-    margin: auto;
-    position: absolute;
-    right: 0;
-    left: 0;
+    padding-top: 20px;
+}
+
+.game-status-container {
+    margin-bottom: 50px;
 }

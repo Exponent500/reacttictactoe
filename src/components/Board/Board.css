@@ -1,48 +1,16 @@
-/* .board-row:after {
-    clear: both;
-    content: "";
-    display: table;
-} */
-
-.board {
-    position: relative;
-}
-
 .board-row {
-    height: 30vmin;
+    text-align: center;
 }
 
-.board-horizontal-line {
-    position: absolute;
-    height: 1vmin;
-    width: 88vmin;
-    left: 1vmin;
-    border-radius: 50px;
-    background-color: black;
+.square-0, .square-1, .square-3, .square-4 {
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
 }
 
-.top-line {
-    top: 29.5vmin;
+.square-2, .square-5 {
+    border-bottom: 2px solid black;
 }
 
-.bottom-line {
-    bottom: 29.5vmin;
-}
-
-.board-vertical-line {
-    position: absolute;
-    width: 5px;
-    width: 1vmin;
-    height: 88vmin;
-    top: 1vmin;
-    border-radius: 50px;
-    background-color: black;
-}
-
-.left-line {
-    left: 29.5vmin;
-}
-
-.right-line {
-    right: 29.5vmin;
+.square-6, .square-7 {
+    border-right: 2px solid black;
 }

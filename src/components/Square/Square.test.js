@@ -8,7 +8,7 @@ let wrapped;
 
 beforeEach( () => {
     wrapped = shallow(
-        <Square value="mockValue"></Square>
+        <Square value='mockValue'></Square>
     ); 
 });
 
@@ -16,4 +16,7 @@ describe('Square', () => {
     it('should render correctly', () => {
         expect(shallowToJson(wrapped)).toMatchSnapshot();
     });
+    it('should display the correct value provided', () => {
+        expect(wrapped.find('.square-value').text()).toEqual('mockValue');
+    })
 });
