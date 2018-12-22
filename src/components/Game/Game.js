@@ -46,13 +46,13 @@ class Game extends Component {
 
         // handles which characters to show for each player based on the mode
         if (currentPlayer === 1 && regularMode) {
-            squares[squareIndex] = 'X';
+            squares[squareIndex] = 'x';
         } else if (currentPlayer === 1 && !regularMode) {
-            squares[squareIndex]= 'Y';
+            squares[squareIndex]= 'square';
         } else if (currentPlayer === 2 && regularMode) {
-            squares[squareIndex] = 'O';
+            squares[squareIndex] = 'circle';
         } else if (currentPlayer === 2 && !regularMode) {
-            squares[squareIndex] = 'Z'
+            squares[squareIndex] = 'sean'
         }
 
         // determine the next player
@@ -121,10 +121,11 @@ class Game extends Component {
         // update history of moves so that the appropriate characters are shown based on the mode
         const updatedHistory = history.map( item => {
             const squares = item.squares.map( square => {
-                if (square === 'X') return 'Y';
-                if (square === 'Y') return 'X';
-                if (square === 'O') return 'Z';
-                if (square === 'Z') return 'O';
+                if (square === 'x') return 'square';
+                if (square === 'square') return 'x';
+                if (square === 'circle') return 'sean';
+                if (square === 'sean') return 'circle';
+                if (square == null) return null;
             });
             return { squares: squares };
         });
@@ -179,7 +180,7 @@ class Game extends Component {
                     </Grid>
                     <Grid item xs={12}>
                         <Board
-                            squares={this.state.history[this.state.turn].squares}
+                            squares={history[turn].squares}
                             onClick={squareIndex => this.onSquareClick(squareIndex)}
                         ></Board>
                     </Grid>

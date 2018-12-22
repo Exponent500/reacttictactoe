@@ -7,7 +7,9 @@ exports[`Square should render correctly 1`] = `
   <div
     className="square-value"
   >
-    mockValue
+    <Icon
+      type="mockValue"
+    />
   </div>
 </div>
 `;

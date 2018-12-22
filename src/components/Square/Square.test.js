@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 
 import Square from './Square';
+import Icon from '../Icon/Icon';
 
 let wrapped;
 
@@ -16,7 +17,7 @@ describe('Square', () => {
     it('should render correctly', () => {
         expect(shallowToJson(wrapped)).toMatchSnapshot();
     });
-    it('should display the correct value provided', () => {
-        expect(wrapped.find('.square-value').text()).toEqual('mockValue');
+    it('should include an Icon component', () => {
+        expect(wrapped.find(Icon).length).toEqual(1);
     })
 });

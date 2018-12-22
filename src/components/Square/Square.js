@@ -1,23 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
 import './Square.css';
+import Icon from '../Icon/Icon';
 
-class Square extends Component {
-    render() {
+const Square = ({ value, onClick }) => {
         const squareClass = classNames({
             square: true,
-            'marked': this.props.value
+            'marked': value
         });
 
         return (
-            <div className={squareClass} onClick={this.props.onClick}>
+            <div className={squareClass} onClick={onClick}>
                 <div className="square-value">
-                    {this.props.value}
+                    <Icon type={value}></Icon>
                 </div>
             </div>
         );
-    }
 }
 
 export default Square;
