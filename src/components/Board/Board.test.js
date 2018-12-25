@@ -4,6 +4,7 @@ import { shallowToJson } from 'enzyme-to-json';
 
 import Board from './Board';
 import Square from '../Square/Square';
+import Root from 'Root';
 
 let wrapped;
 
@@ -13,18 +14,20 @@ const mockSquares = [
     'X', 'X', '0'
 ];
 
-beforeEach( () => {
-    wrapped = shallow(
-        <Board squares={mockSquares}></Board>
-    ); 
-});
-
 describe('Board', () => {
     it('should render correctly', () => {
+        wrapped = shallow(
+            <Board squares={mockSquares}></Board>
+        );
         expect(shallowToJson(wrapped)).toMatchSnapshot();
     });
 
     it('should have 9 squares', () => {
+        wrapped = mount(
+            <Root>
+                <Board squares={mockSquares}/>
+            </Root>
+        );
         expect(wrapped.find(Square).length).toEqual(9);
     });
 
@@ -33,7 +36,11 @@ describe('Board', () => {
         const onClick = jest.fn();
         // using mount because there is a need to simulate a click on the Square component in order
         // to enable the Board component to register that a click event occurred
-        const wrapped = mount(<Board squares={mockSquares} onClick={onClick} />);
+        const wrapped = mount(
+            <Root>
+                <Board squares={mockSquares} onClick={onClick} />
+            </Root>
+        );
         wrapped.find('.square-value').first().simulate('click');
         expect(onClick).toBeCalledWith(0);
     });

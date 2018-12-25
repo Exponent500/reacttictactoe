@@ -1,15 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Square should render correctly 1`] = `
-<div
-  className="square marked"
->
-  <div
-    className="square-value"
-  >
-    <Icon
-      type="mockValue"
-    />
-  </div>
-</div>
+<ContextConsumer>
+  <Component />
+</ContextConsumer>
 `;

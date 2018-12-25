@@ -14,3 +14,7 @@
 .square-6, .square-7 {
     border-right: 2px solid black;
 }
+
+.devlandiaMode {
+    border-color: white;
+}

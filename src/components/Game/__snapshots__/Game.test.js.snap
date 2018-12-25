@@ -1,93 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Game should render correctly 1`] = `
-<div
-  className="game"
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
 >
-  <WithStyles(Grid)
-    container={true}
-    direction="column"
-  >
-    <WithStyles(Grid)
-      item={true}
-      xs={12}
-    >
-      <WithStyles(Grid)
-        className="game-status-container"
-        container={true}
-        justify="center"
-      >
-        <WithStyles(Grid)
-          item={true}
-        >
-          <div
-            className="game-status"
-          >
-            Player 1's turn.
-          </div>
-        </WithStyles(Grid)>
-      </WithStyles(Grid)>
-    </WithStyles(Grid)>
-    <WithStyles(Grid)
-      item={true}
-      xs={12}
-    >
-      <Board
-        onClick={[Function]}
-        squares={
-          Array [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-          ]
-        }
-      />
-    </WithStyles(Grid)>
-    <WithStyles(Grid)
-      item={true}
-      xs={12}
-    >
-      <WithStyles(Grid)
-        className="btn-group"
-        container={true}
-        justify="center"
-        spacing={8}
-      >
-        <WithStyles(Grid)
-          className="btn-undo-move-container"
-          item={true}
-        >
-          <WithStyles(Button)
-            className="btn-undo-move"
-            color="primary"
-            disabled={true}
-            onClick={[Function]}
-            variant="contained"
-          >
-            Undo Last Move
-          </WithStyles(Button)>
-        </WithStyles(Grid)>
-        <WithStyles(Grid)
-          item={true}
-        >
-          <WithStyles(Button)
-            className="btn-start-new-game"
-            color="secondary"
-            disabled={true}
-            onClick={[Function]}
-            variant="contained"
-          >
-            Start New Game
-          </WithStyles(Button)>
-        </WithStyles(Grid)>
-      </WithStyles(Grid)>
-    </WithStyles(Grid)>
-  </WithStyles(Grid)>
-</div>
+  <WithStyles(Connect(Game)) />
+</Provider>
 `;

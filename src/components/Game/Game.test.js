@@ -2,22 +2,24 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
 
+import Root from 'Root';
 import Game from './Game';
+import { Game as UnConnectedGame } from './Game';
 
 describe('Game', () => {
     it('should render correctly', () => {
-        const wrapped = shallow(<Game />); 
+        const wrapped = shallow(<Root><Game /></Root>); 
         expect(shallowToJson(wrapped)).toMatchSnapshot();
     });
 
     it('should render game status correctly if it is a brand new game ', () => {
-        const wrapped = mount(<Game />);
+        const wrapped = mount(<Root><Game /></Root>);
         const gameStatus = wrapped.find('.game-status').text();
         expect(gameStatus).toEqual("Player 1's turn.");
     });
 
     it('should render game status correctly if it is player 2 move', () => {
-        const wrapped = mount(<Game />);
+        const wrapped = mount(<Root><Game /></Root>);
         let gameStatus;
 
         // Player 1's turn
@@ -29,7 +31,7 @@ describe('Game', () => {
     });
 
     it('should render game status correctly if a player won', () => {
-        const wrapped = mount(<Game />);
+        const wrapped = mount(<Root><Game /></Root>);
         let gameStatus;
 
         // Player 1's turn
@@ -57,7 +59,7 @@ describe('Game', () => {
     });
 
     it('should render game status correctly if it is a tie', () => {
-        const wrapped = mount(<Game />);
+        const wrapped = mount(<Root><Game /></Root>);
         let gameStatus;
 
         // Player 1's turn
@@ -101,17 +103,15 @@ describe('Game', () => {
     });
 
     it('should update the Board and Game Status if undo last move button is clicked after moves have been made', () => {
-        const wrapped = mount(<Game regularMode="true"/>);
+        const wrapped = shallow(<UnConnectedGame classes={ 'root' } />);
         let gameStatus, boardState;
 
-        // Player 1's turn
-        const squareFour = wrapped.find('.square').at(4);
-        squareFour.simulate('click');
+        wrapped.instance().onSquareClick(4);
 
         boardState = wrapped.state().history[wrapped.state().turn].squares;
         expect(boardState).toEqual([null, null, null, null, 'x', null, null, null, null]);
 
-        wrapped.find('Button.btn-undo-move').simulate('click');
+        wrapped.find('WithStyles(Button).btn-undo-move').simulate('click');
 
         boardState = wrapped.state().history[wrapped.state().turn].squares;
         expect(boardState).toEqual([null, null, null, null, null, null, null, null, null]);
@@ -122,47 +122,44 @@ describe('Game', () => {
     });
 
     it('should update the Board if the toggle characters button is clicked after moves have been made', () => {
-        const wrapped = mount(<Game regularMode="true"/>);
+        const wrapped = shallow(<UnConnectedGame classes={ 'root' } />);
         let boardState;
 
         // Player 1's turn
-        const squareFour = wrapped.find('.square').at(4);
-        squareFour.simulate('click');
+        wrapped.instance().onSquareClick(4);
 
         boardState = wrapped.state().history[wrapped.state().turn].squares;
         expect(boardState).toEqual([null, null, null, null, 'x', null, null, null, null]);
 
         // Player 2's turn
-        const squareZero = wrapped.find('.square').at(0);
-        squareZero.simulate('click');
+        wrapped.instance().onSquareClick(0);
 
         boardState = wrapped.state().history[wrapped.state().turn].squares;
         expect(boardState).toEqual(['circle', null, null, null, 'x', null, null, null, null]);        
 
-        wrapped.setProps({ regularMode: false })
+        wrapped.setProps({ devlandiaMode: false })
 
         boardState = wrapped.state().history[wrapped.state().turn].squares;
         expect(boardState).toEqual(['sean', null, null, null, 'square', null, null, null, null]);        
     });
 
     it('should display alternate characters within squares when new game is started after game mode is switched to use said alternate characters', () => {
-        const wrapped = mount(<Game />);
+        const wrapped = shallow(<UnConnectedGame classes={ 'root' } />);
         let boardState;
 
-        wrapped.setProps({ regularMode: false })
+        wrapped.setProps({ devlandiaMode: true })
 
         // Player 1's turn
-        const squareZero = wrapped.find('.square').at(0);
-        squareZero.simulate('click');
+        wrapped.instance().onSquareClick(0);
 
         boardState = wrapped.state().history[wrapped.state().turn].squares;
         expect(boardState).toEqual(['square', null, null, null, null, null, null, null, null]);   
     });
 
     it('should start a new game when "Start New Game" button is clicked', () => {
-        const wrapped = mount(<Game />);
+        const wrapped = shallow(<UnConnectedGame classes={ 'root' } />);
         let boardState;
-        wrapped.find('Button.btn-start-new-game').simulate('click');
+        wrapped.find('WithStyles(Button).btn-start-new-game').simulate('click');
 
         boardState = wrapped.state().history[wrapped.state().turn].squares;
         expect(boardState).toEqual([null, null, null, null, null, null, null, null, null]); 

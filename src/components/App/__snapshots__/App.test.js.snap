@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should render correclty 1`] = `
-<App
-  classes={
-    Object {
-      "grow": "App-grow-1",
-      "label": "App-label-2",
-    }
-  }
-/>
+exports[`App should render correclty 1`] = `
+<div>
+  <header>
+    <WithStyles(Connect(TopHeader)) />
+  </header>
+  <section>
+    <WithStyles(Connect(Game)) />
+  </section>
+</div>
 `;

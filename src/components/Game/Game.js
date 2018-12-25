@@ -1,11 +1,28 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import classNames from 'classnames';
+
 import Board from '../Board/Board';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
 
 import './Game.css';
 
-class Game extends Component {
+const styles = {
+    root: {
+        '&$disabledUndoButtonBackground': {
+            background: '#3f51b5'
+        },
+        '&$disabledNewGameButtonBackground': {
+            background: '#f50057'
+        }
+    },
+    disabledUndoButtonBackground: {},
+    disabledNewGameButtonBackground: {}
+};
+
+export class Game extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,7 +35,7 @@ class Game extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.regularMode !== prevProps.regularMode) {
+        if (this.props.devlandiaMode !== prevProps.devlandiaMode) {
             this.onModeChange();
         }
     }
@@ -34,7 +51,7 @@ class Game extends Component {
         const current = history[history.length - 1];
         const squares = current.squares.slice();
         const currentPlayer = this.state.player;
-        const { regularMode } = this.props;
+        const { devlandiaMode } = this.props;
 
 
         // guards against click events when:
@@ -45,13 +62,13 @@ class Game extends Component {
         }
 
         // handles which characters to show for each player based on the mode
-        if (currentPlayer === 1 && regularMode) {
+        if (currentPlayer === 1 && !devlandiaMode) {
             squares[squareIndex] = 'x';
-        } else if (currentPlayer === 1 && !regularMode) {
+        } else if (currentPlayer === 1 && devlandiaMode) {
             squares[squareIndex]= 'square';
-        } else if (currentPlayer === 2 && regularMode) {
+        } else if (currentPlayer === 2 && !devlandiaMode) {
             squares[squareIndex] = 'circle';
-        } else if (currentPlayer === 2 && !regularMode) {
+        } else if (currentPlayer === 2 && devlandiaMode) {
             squares[squareIndex] = 'sean'
         }
 
@@ -148,6 +165,11 @@ class Game extends Component {
     }
 
     render() {
+        const devlandiaModeClass = classNames({
+            'devlandiaMode': this.props.devlandiaMode
+        });
+        const { classes } = this.props;
+
         const { history, turn } = this.state;
         const current = history[turn];
         const currentPlayer = this.state.player;
@@ -167,12 +189,12 @@ class Game extends Component {
         }
 
         return(
-            <div className="game">
+            <div className={"game " + devlandiaModeClass}>
                 <Grid container direction="column">
                     <Grid item xs={12}>
                         <Grid container className="game-status-container" justify="center">
                             <Grid item>
-                                <div className="game-status">
+                                <div className={"game-status " + devlandiaModeClass}>
                                     {status}
                                 </div>
                             </Grid>
@@ -187,15 +209,23 @@ class Game extends Component {
                     <Grid item xs={12}>
                         <Grid container className="btn-group" justify="center" spacing={8}>
                             <Grid item className="btn-undo-move-container">
-                                <Button variant="contained"
-                                        color="primary"
+                                <Button classes={ {
+                                            root: classes.root,
+                                            disabled: classes.disabledUndoButtonBackground
+                                        } }
                                         className="btn-undo-move"
+                                        variant="contained"
+                                        color="primary"
                                         disabled={!turn}
                                         onClick={() => this.onUndoLastMove()}
                                 >Undo Last Move</Button>
                             </Grid>
                             <Grid item>
-                                <Button variant="contained"
+                                <Button classes={ {
+                                            root: classes.root,
+                                            disabled: classes.disabledNewGameButtonBackground
+                                        } }
+                                        variant="contained"
                                         color="secondary"
                                         className="btn-start-new-game"
                                         disabled={!turn}
@@ -210,4 +240,8 @@ class Game extends Component {
     }
 }
 
-export default Game;
+function mapStateToProps(state) {
+    return { devlandiaMode: state.devlandiaMode };
+}
+
+export default withStyles(styles)(connect(mapStateToProps)(Game));

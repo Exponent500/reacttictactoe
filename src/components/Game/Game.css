@@ -1,10 +1,22 @@
+.game {
+    height: 100vh;
+}
+
 .game-status {
     font-size: 24px;
+}
+
+.game-status.devlandiaMode {
+    color: white;
 }
 
 .btn-group {
     padding-top: 40px;
 }
+
+/* .btn-undo-move.game.devlandiaMode {
+    background-color: rgba(0,0,0);
+} */
 
 .btn-undo-move-wrapper {
     margin-right: 20px;
@@ -12,6 +24,10 @@
 
 .game {
     padding-top: 20px;
+}
+
+.game.devlandiaMode {
+    background-color: black;
 }
 
 .game-status-container {
